@@ -137,7 +137,12 @@ public class MainSceneController {
                     String statusLine = br.readLine();
                     int statusCode = Integer.parseInt(statusLine.split(" ")[1]);
                     System.out.println("Status Code: " + statusCode);
+                    boolean redirection = statusCode >= 300 && statusCode <= 399;
 
+                    // Read Request headers
+                    String contentType = null;
+                    String line;
+                    while ((line = br.readLine()) != null && !line.isBlank())
                     
 
                 } catch (IOException e) {
