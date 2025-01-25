@@ -159,7 +159,15 @@ public class MainSceneController {
                     }
                     System.out.println("Content type: " + contentType);
 
-                    
+                    String content = "";
+                    while ((line = br.readLine()) != null) {
+                        content += line + "\n";
+                    }
+                    System.out.println("Content: " + content);
+                    String finalContent = content;
+                    Platform.runLater(() -> {
+                        wbDisplay.getEngine().loadContent(finalContent);
+                    });
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
