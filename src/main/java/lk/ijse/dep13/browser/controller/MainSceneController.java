@@ -142,7 +142,23 @@ public class MainSceneController {
                     // Read Request headers
                     String contentType = null;
                     String line;
-                    while ((line = br.readLine()) != null && !line.isBlank())
+                    while ((line = br.readLine()) != null && !line.isBlank()) {
+                        String header = line.split(":")[0].strip();
+                        String value = line.substring(line.indexOf(":") + 1);
+
+                        if (redirection) {
+                            if (!header.equalsIgnoreCase("Location")) continue;
+                            System.out.println("Redirection: " + value);
+                            Platform.runLater(() -> txtAddress.setText(value));
+                            loadWebPage(value);
+                            return;
+                        } else {
+                            if (!header.equalsIgnoreCase("content-type")) continue;
+                            contentType = value;
+                        }
+                    }
+                    System.out.println("Content type: " + contentType);
+
                     
 
                 } catch (IOException e) {
